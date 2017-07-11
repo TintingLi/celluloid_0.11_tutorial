@@ -28,8 +28,8 @@ if( !file.exists("RdaPipeline/nc.rda") ){
   # load and segment normal data
   n<- wigsToRangedData( normalWigFile, gcWigFile, mapWigFile )
   # gc correction
-  nc<-gcCorrect(n) 
-  n.seg <- segmentSeqData( nc, k=50 , maskmap = 0.8 )
+  nc<-gcCorrect(n, assembly="hg19" ) 
+  n.seg <- segmentSeqData( nc, k=50 , maskmap = 0.8 , assembly="hg19"  )
   save( n.seg, file="RdaPipeline/n.seg.rda")
   save( nc, file="RdaPipeline/nc.rda")
 } else {
@@ -41,8 +41,8 @@ if( !file.exists("RdaPipeline/nc.rda") ){
 if( !file.exists("RdaPipeline/tc.rda") ){
   # load and segment tumor data
   t <- wigsToRangedData( tumourWigFile, gcWigFile, mapWigFile )
-  tc<-gcCorrect( t, sampletype="tumor" )
-  t.seg <- segmentSeqData( tc , k=50  )
+  tc<-gcCorrect( t, sampletype="tumor", assembly="hg19" )
+  t.seg <- segmentSeqData( tc , k=50 , assembly="hg19" )
   save( t.seg, file="RdaPipeline/t.seg.rda")
   save( tc, file="RdaPipeline/tc.rda")
 } else {
@@ -70,7 +70,7 @@ if( !file.exists("RdaPipeline/t.ar.seg.rda" ) ){
   # reading allelic ratio file and segmenting
   ar<-read.table(arFile, head=T )
   save( ar, file="RdaPipeline/ar.rda") 
-  ar.seg<- segmentAR( ar, tc ) 
+  ar.seg<- segmentAR( ar, tc, assembly="hg19" ) 
   save( ar.seg, file="RdaPipeline/ar.seg.rda")
   t.ar.seg <- intersectSegments( t.seg.mask, ar.seg  )
   t.ar.seg<-t.ar.seg[ !apply( is.na( t.ar.seg[,c("mean","meanar")] ), 1, any),]

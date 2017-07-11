@@ -33,12 +33,12 @@ chosen set of bins (50000 by default) is used to estimate the effect of gc
 content.
 
 ## set.seed(12345)
-nc<-gcCorrect(n) 
+nc<-gcCorrect(n, assembly="hg19" ) 
 
 Segment the data, using functions from the copynumber package. At the same time, 
 the function also calculates the mean mappability in each segment.
 
-n.seg <- segmentSeqData( nc, kmin=50 , maskmap = 0.8 )
+n.seg <- segmentSeqData( nc, kmin=50 , maskmap = 0.8 , assembly="hg19" )
 
 head(n.seg)
 
@@ -67,9 +67,9 @@ Repeat for tumor data:
 t <- wigsToRangedData( tumourWigFile, gcWigFile, mapWigFile )
 
 ## set.seed(23451) 
-tc<-gcCorrect( t , sampletype="tumor" )
+tc<-gcCorrect( t , sampletype="tumor" , assembly="hg19" )
 
-t.seg <- segmentSeqData( tc , kmin=50 , maskmap = 0.8 )
+t.seg <- segmentSeqData( tc , kmin=50 , maskmap = 0.8 , assembly="hg19" )
 
 head(t.seg)
 
@@ -164,7 +164,7 @@ Segmenting the AR data so that LOH regions can be distinguished from normal
 regions. From here on, the sex chromosomes are ignored and excluded from 
 output. 
 
-ar.seg<- segmentAR( ar, tc ) 
+ar.seg<- segmentAR( ar, tc , assembly="hg19" ) 
 
 head(ar.seg)
 
