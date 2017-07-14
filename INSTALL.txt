@@ -22,9 +22,3 @@ Install copynumber38, a modified version of copynumber that allows alignment to 
 then install celluloid 0.11.4/hg38 from github:
 
  install_github("mathieu-lemire/celluloid_0.11", ref="hg38" )
-
-Alternatively you can download the source code located at
-
- https://github.com/mathieu-lemire/celluloid_0.11/releases
-
-and install it with R CMD INSTALL.
